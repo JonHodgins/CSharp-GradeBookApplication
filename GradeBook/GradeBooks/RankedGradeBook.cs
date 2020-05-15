@@ -10,6 +10,7 @@ namespace GradeBook.GradeBooks
             Type = GradeBookType.Ranked;
         }
 
+        // TODO - GetLetterGrade algo is confusing. Simplify
         public override char GetLetterGrade(double averageGrade)
         {
             var numStudents = Students.Count;
@@ -17,9 +18,8 @@ namespace GradeBook.GradeBooks
             {
                 throw new InvalidOperationException("Ranked-grading requires a minimum of 5 students to work");
             }
-            var dropAGrade = (numStudents / 5);
-            int numStudentsHigherGrade = 0;
 
+            int numStudentsHigherGrade = 0;
             foreach (var student in Students)
             {
                 if (student.AverageGrade > averageGrade)
@@ -28,8 +28,8 @@ namespace GradeBook.GradeBooks
                 }
             }
 
+            var dropAGrade = (numStudents / 5);
             var placement = numStudentsHigherGrade / dropAGrade;
-
             switch (placement)
             {
                 case 0:
